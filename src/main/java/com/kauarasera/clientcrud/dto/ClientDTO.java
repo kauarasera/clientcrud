@@ -1,5 +1,7 @@
 package com.kauarasera.clientcrud.dto;
 
+import com.kauarasera.clientcrud.entities.Client;
+
 import java.time.LocalDate;
 
 public class ClientDTO {
@@ -12,6 +14,25 @@ public class ClientDTO {
     private Integer children;
 
     public ClientDTO() {
+    }
+
+    public ClientDTO(Long id, String name, String cpf, Double income, LocalDate birthDate, Integer children) {
+        this.id = id;
+        this.name = name;
+        this.cpf = cpf;
+        this.income = income;
+        this.birthDate = birthDate;
+        this.children = children;
+    }
+
+
+    public ClientDTO(Client entity) {
+        id = entity.getId();
+        name = entity.getName();
+        cpf = entity.getCpf();
+        income = entity.getIncome();
+        birthDate = entity.getBirthDate();
+        children = entity.getChildren();
     }
 
     public Long getId() {
