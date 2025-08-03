@@ -21,6 +21,7 @@ public class Client {
     @Column(unique = true)/// conf do campo cpf ao ser convertido para BD relacional estou dizendo que essa coluna sera unica
     private String cpf;
     private Double income;
+    @Column(name = "birth_date")
     private LocalDate birthDate;
     private Integer children;
 
