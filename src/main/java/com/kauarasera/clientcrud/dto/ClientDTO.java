@@ -1,6 +1,7 @@
 package com.kauarasera.clientcrud.dto;
 
 import com.kauarasera.clientcrud.entities.Client;
+import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
 
@@ -10,6 +11,7 @@ public class ClientDTO {
     private String name;
     private String cpf;
     private Double income;
+    @PastOrPresent(message = "Date of birth cannot be a future date")
     private LocalDate birthDate;
     private Integer children;
 
