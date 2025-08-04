@@ -1,6 +1,9 @@
 package com.kauarasera.clientcrud.dto;
 
 import com.kauarasera.clientcrud.entities.Client;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
@@ -8,11 +11,15 @@ import java.time.LocalDate;
 public class ClientDTO {
 
     private Long id;
+    @NotBlank(message = "Required field.")
     private String name;
+
     private String cpf;
+    @DecimalMin(value = "0.0", inclusive = false, message = "Income must be greater than 0")
     private Double income;
     @PastOrPresent(message = "Date of birth cannot be a future date")
     private LocalDate birthDate;
+    @Min(value = 0, message = "Children cannot be negative")
     private Integer children;
 
     public ClientDTO() {
