@@ -2,6 +2,7 @@ package com.kauarasera.clientcrud.controllers;
 
 import com.kauarasera.clientcrud.dto.ClientDTO;
 import com.kauarasera.clientcrud.services.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +33,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ClientDTO insert(@RequestBody ClientDTO dto) {
+    public ClientDTO insert(@RequestBody @Valid ClientDTO dto) {
         dto = clientService.insert(dto);
         return dto;
     }
