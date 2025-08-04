@@ -3,6 +3,7 @@ package com.kauarasera.clientcrud.services;
 import com.kauarasera.clientcrud.dto.ClientDTO;
 import com.kauarasera.clientcrud.entities.Client;
 import com.kauarasera.clientcrud.repositories.ClientRepository;
+import com.kauarasera.clientcrud.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +20,8 @@ public class ClientService {
 
     @Transactional(readOnly = true)
     public ClientDTO findById(Long id) {
-        Optional<Client> result = clientRepository.findById(id);
-        Client client = result.get();
+        Client client = clientRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Resource Not Found"));
         return new ClientDTO(client);
     }
 
@@ -34,7 +35,6 @@ public class ClientService {
     public ClientDTO insert(ClientDTO dto) {
         Client entity = new Client();
         entity = clientRepository.save(entity);
-        entity = clientRepository.save(entity);
         return new ClientDTO(entity);
     }
 
@@ -44,6 +44,11 @@ public class ClientService {
         copyDtoToEntity(dto, entity);
         entity = clientRepository.save(entity);
         return new ClientDTO(entity);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        clientRepository.deleteById(id);
     }
 
     private void copyDtoToEntity(ClientDTO dto, Client entity) {
